@@ -1,7 +1,10 @@
 package com.ittovative.emaillistener.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.ittovative.emaillistener.service.GmailService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.util.LinkedMultiValueMap;
@@ -24,7 +27,14 @@ import java.util.Map;
 
 @RestController
 //@RequestMapping("/")
-public class controller {
+public class Controller {
+
+    @Autowired
+    GmailService service;
+
+    String token ="ya29.a0AcM612zdpw-HWY7qu9yon9IpnP06o5W5QWG6oTTayh-cAMw2gDc3AlaFoDEjCDRueFzpZUW1jCzCW6r9qF8WdkQOrabngg7q4J9mbqMW4E9d54tsNhdHxbA08jWTOF5g1MbEwj8dUCJnurGsZp00drBtdy8AA9WdY5BZU8LxaCgYKAXMSARESFQHGX2Mib0S2IepCRDCcEHc0rFcxHQ0175";
+
+
 
 
     @PostMapping("/receive")
@@ -32,20 +42,28 @@ public class controller {
         Map<String, Object> data = (Map<String, Object>) jsonBody.get("message");
         String encodedMessage = (String) data.get("data");
 
-
+        System.out.println("encodedMessage 1 ::: " + encodedMessage);
         byte[] byteArr = Base64.getDecoder().decode(encodedMessage);
 
         String decodedString = new String(byteArr);
 
-        decodedString = new String(Base64.getDecoder().decode(decodedString));
+        System.out.println("encodedMessage 2 ::: " + decodedString);
+
+        try {
+            ObjectMapper objectMapper = new ObjectMapper();
+
+            Map<String, Object> result = objectMapper.readValue(decodedString, Map.class);
+
+            decodedString = (String) result.get("historyId").toString();
 
 
-        return decodedString;
+            System.out.println("encodedMessage 4 ::: " + decodedString);
 
-    }
+            service.listHistoryItems(decodedString, token );
 
-    @GetMapping("/receive")
-    public String getNotification() {
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         return "decodedString";
 
@@ -63,7 +81,7 @@ public class controller {
         String CLIENT_ID = "12787138394-1i1vr35m674rgp0ce27invhv9go71avr.apps.googleusercontent.com";
 //        String CLIENT_SECRET = "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";
 
-        String scopeString = "https://mail.google.com/ https://www.googleapis.com/auth/gmail.readonly https://www.googleapis.com/auth/gmail.metadata";
+        String scopeString = "https://mail.google.com/ https://www.googleapis.com/auth/gmail.readonly";
 
         String redirect_url = "http://localhost:8080/redirect";
 
@@ -137,6 +155,7 @@ public class controller {
                 .map(response1 -> {
                     Map<String, String> tokenResponse = new HashMap<>();
                     tokenResponse.put("access_token", (String) response1.get("access_token"));
+                    token = (String) response1.get("access_token");
                     tokenResponse.put("refresh_token", (String) response1.get("refresh_token"));
                     tokenResponse.put("expires_in", String.valueOf(response1.get("expires_in")));
                     tokenResponse.put("token_type", (String) response1.get("token_type"));
@@ -155,6 +174,7 @@ public class controller {
                     System.err.println("Error occurred: " + ex.getMessage());
                 })
                 .block(Duration.ofSeconds(20));
+
 
     }
 
