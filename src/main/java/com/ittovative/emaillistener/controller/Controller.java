@@ -2,27 +2,16 @@ package com.ittovative.emaillistener.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.client.auth.oauth2.TokenResponse;
+
+import com.ittovative.emaillistener.config.GoogleProperties;
 import com.ittovative.emaillistener.service.GmailService;
 import com.ittovative.emaillistener.service.OAuth2Service;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.reactive.function.BodyInserters;
-import org.springframework.web.reactive.function.UnsupportedMediaTypeException;
-import org.springframework.web.reactive.function.client.WebClient;
-import org.springframework.web.reactive.function.client.WebClientResponseException;
-import org.springframework.web.util.UriComponentsBuilder;
-import reactor.core.publisher.Mono;
 
 import java.io.IOException;
-import java.time.Duration;
 import java.util.Base64;
-import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -30,17 +19,24 @@ import java.util.Map;
 public class Controller {
 
     @Autowired
-    GmailService service;
+   private GmailService gmailService ;
     @Autowired
-    OAuth2Service  oAuth2Service ;
+    private  OAuth2Service  oAuth2Service ;
 
-    String token ="ya29.a0AcM612zdpw-HWY7qu9yon9IpnP06o5W5QWG6oTTayh-cAMw2gDc3AlaFoDEjCDRueFzpZUW1jCzCW6r9qF8WdkQOrabngg7q4J9mbqMW4E9d54tsNhdHxbA08jWTOF5g1MbEwj8dUCJnurGsZp00drBtdy8AA9WdY5BZU8LxaCgYKAXMSARESFQHGX2Mib0S2IepCRDCcEHc0rFcxHQ0175";
+    @Autowired
+    private GoogleProperties googleOAuthProperties ;
 
+    public Controller(GoogleProperties googleOAuthProperties , GmailService gmailService  , OAuth2Service  oAuth2Service ) {
+        this.googleOAuthProperties = googleOAuthProperties ;
+        this.gmailService = gmailService ;
+        this.oAuth2Service = oAuth2Service ;
+    }
 
 
 
     @PostMapping("/receive")
     public String receiveNotification(@RequestBody Map<String, Object> jsonBody) {
+
         Map<String, Object> data = (Map<String, Object>) jsonBody.get("message");
         String encodedMessage = (String) data.get("data");
 
@@ -60,8 +56,10 @@ public class Controller {
 
 
             System.out.println("encodedMessage 4 ::: " + decodedString);
+            System.out.println( "token : "+  googleOAuthProperties.getToken() );
+            System.out.println( "history ID  : "+  decodedString );
 
-            service.listHistoryItems(decodedString, token );
+            gmailService.listHistoryItems( decodedString, googleOAuthProperties.getToken());
 
         } catch (Exception e) {
             e.printStackTrace();
