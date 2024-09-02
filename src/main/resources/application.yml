@@ -1,0 +1,13 @@
+google:
+  oauth:
+    auth-url: "https://accounts.google.com/o/oauth2/v2/auth"
+    client-id: ${GOOGLE_OAUTH_CLIENT_ID}
+    client-secret: ${GOOGLE_OAUTH_CLIENT_SECRET}
+    redirect-url: "http://localhost:8080/redirect"
+    response-type: "code"
+    scopes:
+      - "https://mail.google.com/"
+      - "https://www.googleapis.com/auth/gmail.readonly"
+
+
+
