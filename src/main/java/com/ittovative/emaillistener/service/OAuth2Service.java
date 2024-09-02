@@ -10,47 +10,48 @@ import com.google.api.client.http.javanet.NetHttpTransport;
 
 import com.google.api.client.json.JsonFactory;
 import com.google.api.client.json.jackson2.JacksonFactory;
+import com.ittovative.emaillistener.config.GoogleProperties;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
-
 
 
 @Service
 public class OAuth2Service {
-    private static final String AUTH_URL = "https://accounts.google.com/o/oauth2/v2/auth";
-    private static final String CLIENT_ID = "12787138394-1i1vr35m674rgp0ce27invhv9go71avr.apps.googleusercontent.com";
-    private static final List<String> SCOPES = Arrays.asList(
-            "https://mail.google.com/",
-            "https://www.googleapis.com/auth/gmail.readonly"
-    );
-    private static final String REDIRECT_URL = "http://localhost:8080/redirect";
-    private static final String RESPONSE_TYPE = "code";
 
 
-    String CLIENT_SECRET = "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";
+    @Autowired
+    private GoogleProperties googleOAuthProperties;
 
-    public String generateAuthUrl( ) {
+    public OAuth2Service(GoogleProperties googleOAuthProperties) {
+        this.googleOAuthProperties = googleOAuthProperties;
+    }
+
+
+    //String CLIENT_SECRET = "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";
+
+    public String generateAuthUrl() {
 
         AuthorizationCodeRequestUrl authorizationCodeRequestUrl =
-                new AuthorizationCodeRequestUrl(AUTH_URL, CLIENT_ID)
-                        .setRedirectUri(REDIRECT_URL)
-                        .setResponseTypes(Collections.singleton(RESPONSE_TYPE))
-                        .setScopes(SCOPES)
+                new AuthorizationCodeRequestUrl(googleOAuthProperties.getAuthUrl(), googleOAuthProperties.getClientId())
+                        .setRedirectUri(googleOAuthProperties.getRedirectUrl())
+                        .setResponseTypes(Collections.singleton(googleOAuthProperties.getResponseType()))
+                        .setScopes(googleOAuthProperties.getScopes())
                         .set("access_type", "offline");
 
         return authorizationCodeRequestUrl.build();
     }
 
-    private static final HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
-    private static final JsonFactory JSON_FACTORY = new JacksonFactory();
+    public HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
+    public JsonFactory JSON_FACTORY = new JacksonFactory();
 
-    private AuthorizationCodeFlow getAuthorizationCodeFlow() {
+
+    @Autowired
+    public AuthorizationCodeFlow getAuthorizationCodeFlow() {
         return new GoogleAuthorizationCodeFlow.Builder(
-                HTTP_TRANSPORT, JSON_FACTORY, CLIENT_ID, CLIENT_SECRET, SCOPES)
+                HTTP_TRANSPORT, JSON_FACTORY, googleOAuthProperties.getClientId(), googleOAuthProperties.getClientSecret(), googleOAuthProperties.getScopes())
                 .setAccessType("offline")
                 .build();
     }
@@ -58,11 +59,13 @@ public class OAuth2Service {
     public TokenResponse exchangeCodeToToken(String authorizationCode) throws IOException, IOException {
         AuthorizationCodeFlow authorizationCodeFlow = getAuthorizationCodeFlow();
         TokenResponse tokenResponse = authorizationCodeFlow.newTokenRequest(authorizationCode)
-                .setRedirectUri(REDIRECT_URL)
+                .setRedirectUri(googleOAuthProperties.getRedirectUrl())
                 .execute();
 
-        // Extract and return the access token
-        return tokenResponse ;
+
+        googleOAuthProperties.setToken(tokenResponse.getAccessToken());
+
+        return tokenResponse;
     }
 
 }
