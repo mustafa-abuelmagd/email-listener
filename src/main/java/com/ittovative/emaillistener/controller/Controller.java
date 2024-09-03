@@ -63,6 +63,11 @@ public class Controller {
     public TokenResponse getAuthorizationCode(@RequestParam String  code ) throws IOException {
 
         TokenResponse token =  oAuth2Service.exchangeCodeToToken(code) ;
+        System.out.println("the controller " + token );
+        String accrss_token = token.getAccessToken();
+        googleOAuthProperties.setToken(accrss_token);
+        System.out.println("Access token that storage in a properties is + " +  googleOAuthProperties.getToken() );
+
         return  token ;
 
     }
