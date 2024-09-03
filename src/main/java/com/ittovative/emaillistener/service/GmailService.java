@@ -1,39 +1,44 @@
 package com.ittovative.emaillistener.service;
 
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
 import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.model.*;
+import com.ittovative.emaillistener.config.GoogleProperties;
+import com.ittovative.emaillistener.util.ExtractEmailData;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+
 
 
 @Service
 public class GmailService {
 
-    String latestHistoryId = "1012355";
     private final Gmail gmailService;
+    private final GoogleProperties googleProperties;
+    private final ExtractEmailData extractEmailData;
+    private String latestHistoryId = null;
 
-
-    public GmailService(Gmail gmailService) {
+    @Autowired
+    public GmailService(Gmail gmailService, GoogleProperties googleProperties, ExtractEmailData extractEmailData) {
         this.gmailService = gmailService;
+        this.googleProperties = googleProperties;
+        this.extractEmailData = extractEmailData;
     }
 
     public void listHistoryItems(String historyId, String token) throws IOException {
-        System.out.println("The history id is come : " + historyId);
 
-        //  latestHistoryId = historyId;
+             if( latestHistoryId == null){
+                latestHistoryId = googleProperties.getHistoryId() ;
+
+             }
 
 
         String userId = "me";
@@ -46,12 +51,11 @@ public class GmailService {
         List<History> histories = response.getHistory();
 
         if (histories != null && !histories.isEmpty()) {
-            History history = histories.get(0); // Access the first history item
+            History history = histories.get(0);
             List<HistoryMessageAdded> messagesAdded = history.getMessagesAdded();
 
             if (messagesAdded != null && !messagesAdded.isEmpty()) {
                 String messageId = messagesAdded.get(0).getMessage().getId(); // Get the first message ID
-                System.out.println("Message ID: " + messageId);
 
                 getMessageById(messageId, token);
             } else {
@@ -81,44 +85,30 @@ public class GmailService {
             byte[] emailBytes = Base64.getUrlDecoder().decode(rawMessage);
             String decodedEmail = new String(emailBytes, StandardCharsets.UTF_8);
 
-            System.out.println("decodeEmail ");
 
-
-            System.out.println("Decoded Email: " + decodedEmail);
-
-            extractEmailData(decodedEmail) ;
+            extractEmailData.extractEmailData(decodedEmail);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void extractEmailData(String emailContent) {
-        String deliveredTo = extractField(emailContent, "Delivered-To:");
-        String received = extractField(emailContent, "Received:");
-        String from = extractField(emailContent, "From:");
-        String subject = extractField(emailContent, "Subject:");
+
+    public String GetLatestHistoryId() throws IOException {
+
+        WatchRequest request = new WatchRequest()
+                .setTopicName( googleProperties.getTopicName() ) // Replace with your topic name
+                .setLabelIds(Collections.singletonList("INBOX"));
 
 
-        System.out.println("Delivered-To: " + deliveredTo);
-        System.out.println("Received: " + received);
-        System.out.println("From: " + from);
-        System.out.println("Subject: " + subject);
+        WatchResponse response = gmailService.users().watch("me", request).setAccessToken(googleProperties.getToken()).execute();
 
-
+        String  historyId = response.getHistoryId().toString() ;
+        return historyId;
     }
-
-    private String extractField(String content, String fieldName) {
-        Pattern pattern = Pattern.compile(fieldName + " (.+)");
-        Matcher matcher = pattern.matcher(content);
-        if (matcher.find()) {
-            return matcher.group(1).trim();
-        }
-        return "Not Found";
-    }
-
-
-
 
 
 }
+
+
+
