@@ -16,7 +16,24 @@ public class GoogleProperties {
     private String responseType;
     private List<String> scopes;
     private String token;
+    private String historyId ;
+    private String topicName ="projects/listeningemail-2/topics/Email-2" ;
 
+    public String getTopicName() {
+        return topicName;
+    }
+
+    public void setTopicName(String topicName) {
+        this.topicName = topicName;
+    }
+
+    public String getHistoryId() {
+        return historyId;
+    }
+
+    public void setHistoryId(String historyId) {
+        this.historyId = historyId;
+    }
 
     public String getAuthUrl() {
         return authUrl;
