@@ -1,6 +1,8 @@
 package com.ittovative.emaillistener.service;
 
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.google.api.client.json.jackson2.JacksonFactory;
@@ -8,10 +10,13 @@ import com.google.api.services.gmail.Gmail;
 import com.google.api.services.gmail.model.*;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.IOException;
 import java.math.BigInteger;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @Service
@@ -76,13 +81,44 @@ public class GmailService {
             byte[] emailBytes = Base64.getUrlDecoder().decode(rawMessage);
             String decodedEmail = new String(emailBytes, StandardCharsets.UTF_8);
 
-            // Print the decoded email content
+            System.out.println("decodeEmail ");
+
+
             System.out.println("Decoded Email: " + decodedEmail);
 
+            extractEmailData(decodedEmail) ;
 
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+    private void extractEmailData(String emailContent) {
+        String deliveredTo = extractField(emailContent, "Delivered-To:");
+        String received = extractField(emailContent, "Received:");
+        String from = extractField(emailContent, "From:");
+        String subject = extractField(emailContent, "Subject:");
+
+
+        System.out.println("Delivered-To: " + deliveredTo);
+        System.out.println("Received: " + received);
+        System.out.println("From: " + from);
+        System.out.println("Subject: " + subject);
+
+
+    }
+
+    private String extractField(String content, String fieldName) {
+        Pattern pattern = Pattern.compile(fieldName + " (.+)");
+        Matcher matcher = pattern.matcher(content);
+        if (matcher.find()) {
+            return matcher.group(1).trim();
+        }
+        return "Not Found";
+    }
+
+
+
+
 
 }
