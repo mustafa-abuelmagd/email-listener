@@ -14,12 +14,10 @@ public class GoogleService {
         Map<String, Object> data = (Map<String, Object>) jsonBody.get("message");
         String encodedMessage = (String) data.get("data");
 
-        System.out.println("encodedMessage 1 ::: " + encodedMessage);
         byte[] byteArr = Base64.getDecoder().decode(encodedMessage);
 
         String decodedString = new String(byteArr);
 
-        System.out.println("encodedMessage 2 ::: " + decodedString);
 
         try {
             ObjectMapper objectMapper = new ObjectMapper();
@@ -27,9 +25,6 @@ public class GoogleService {
             Map<String, Object> result = objectMapper.readValue(decodedString, Map.class);
 
             decodedString = (String) result.get("historyId").toString();
-
-
-            System.out.println( "history ID  : "+  decodedString );
 
 
         } catch (Exception e) {
