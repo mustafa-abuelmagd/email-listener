@@ -30,8 +30,16 @@ public class OAuth2Service {
     }
 
 
-    //String CLIENT_SECRET = "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";
-
+    /**
+     * Generates the URL for the OAuth2 authorization request.
+     * <p>
+     * This method constructs the URL that users need to visit in order to authorize the application
+     * and obtain an authorization code. The URL includes the required parameters such as client ID,
+     * redirect URI, response type, and scopes.
+     * </p>
+     *
+     * @return the authorization URL as a string
+     */
     public String generateAuthUrl() {
 
         AuthorizationCodeRequestUrl authorizationCodeRequestUrl =
@@ -47,7 +55,16 @@ public class OAuth2Service {
     public HttpTransport HTTP_TRANSPORT = new NetHttpTransport();
     public JsonFactory JSON_FACTORY = new JacksonFactory();
 
-
+    /**
+     * Creates and returns an {@link AuthorizationCodeFlow} object.
+     * <p>
+     * This method initializes an {@link AuthorizationCodeFlow} using the configured client ID, client
+     * secret, and scopes. The flow is used to handle the OAuth2 authorization code exchange and token
+     * management.
+     * </p>
+     *
+     * @return an {@link AuthorizationCodeFlow} instance
+     */
     @Autowired
     public AuthorizationCodeFlow getAuthorizationCodeFlow() {
         return new GoogleAuthorizationCodeFlow.Builder(
@@ -56,6 +73,18 @@ public class OAuth2Service {
                 .build();
     }
 
+    /**
+     * Exchanges an authorization code for an access token.
+     * <p>
+     * This method uses the provided authorization code to request an access token from Google's OAuth2
+     * service. The token response is then used to set the access token in the {@link GoogleProperties}
+     * configuration.
+     * </p>
+     *
+     * @param authorizationCode the authorization code obtained from the OAuth2 authorization server
+     * @return the token response containing the access token
+     * @throws IOException if there is an error during the token request or processing
+     */
     public TokenResponse exchangeCodeToToken(String authorizationCode) throws IOException, IOException {
         AuthorizationCodeFlow authorizationCodeFlow = getAuthorizationCodeFlow();
         TokenResponse tokenResponse = authorizationCodeFlow.newTokenRequest(authorizationCode)
