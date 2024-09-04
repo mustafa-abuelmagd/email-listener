@@ -255,11 +255,16 @@ If you're not seeing incoming emails in your project:
 **Before starting the application, ensure that you have completed the **Setup Instructions**. There are two ways to start the application:**
 
 ### 1. Using IntelliJ
+
 1. Open the project in IntelliJ IDEA.
+   
 2. Make sure all necessary dependencies are downloaded and the project is built successfully.
-4. Right-click on the `EmailListenerApplication` class and select **Run 'Application'**.
-5-Open your web browser or a tool like Postman.
-6-Access the authentication endpoint by navigating to:
+  
+3. Right-click on the `EmailListenerApplication` class and select **Run 'Application'**.
+
+4-Open your web browser or a tool like Postman.
+
+5-Access the authentication endpoint by navigating to:
 ```
 http://localhost:8080/login
 ```
@@ -282,13 +287,10 @@ https://forum.bubble.io/t/how-do-i-implement-an-oauth2-flow-in-my-ui/17113
 
 https://developers.google.com/identity/protocols/oauth2
 
-
 https://support.google.com/cloud/answer/6158849?hl=en
 
 https://blog.logrocket.com/how-to-authenticate-access-google-apis-using-oauth-2-0/
 
-
 https://medium.com/@sallu-salman/implementing-sign-in-with-google-in-spring-boot-application-5f05a34905a8
-
 
 https://developers.google.com/gmail/api/reference/rest/v1/users/getProfile
