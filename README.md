@@ -56,19 +56,7 @@ To clone the project to your local machine, use the following Git command:
 git clone https://github.com/mustafa-abuelmagd/email-listener.git
 ```
 
- ## How to Start the App
- 
-**Before starting the application, ensure that you have completed the **Setup Instructions**. There are two ways to start the application:**
 
-### 1. Using IntelliJ
-1. Open the project in IntelliJ IDEA.
-2. Make sure all necessary dependencies are downloaded and the project is built successfully.
-4. Right-click on the `EmailListenerApplication` class and select **Run 'Application'**.
-5-Open your web browser or a tool like Postman.
-6-Access the authentication endpoint by navigating to:
-```
-http://localhost:8080/login
-```
 ## Setup Instructions
 
 
@@ -261,3 +249,46 @@ If you're not seeing incoming emails in your project:
 **2-** Verify that your ngrok tunnel is still active and that the Pub/Sub subscription has the correct endpoint URL.
 
 **3-** Review the application logs for any error messages or connection issues.
+
+ ## How to Start the App
+ 
+**Before starting the application, ensure that you have completed the **Setup Instructions**. There are two ways to start the application:**
+
+### 1. Using IntelliJ
+1. Open the project in IntelliJ IDEA.
+2. Make sure all necessary dependencies are downloaded and the project is built successfully.
+4. Right-click on the `EmailListenerApplication` class and select **Run 'Application'**.
+5-Open your web browser or a tool like Postman.
+6-Access the authentication endpoint by navigating to:
+```
+http://localhost:8080/login
+```
+
+## Resources Used to Build This Project
+
+https://blog.postman.com/how-to-access-google-apis-using-oauth-in-postman/
+
+https://stackoverflow.com/questions/11330919/correct-redirect-uri-for-google-api-and-oauth-2-0
+
+https://developers.google.com/identity/protocols/oauth2/web-server
+
+https://developers.google.com/identity/protocols/oauth2/javascript-implicit-flow
+
+https://infisical.com/blog/guide-to-implementing-oauth2
+
+https://forum.bubble.io/t/how-do-i-implement-an-oauth2-flow-in-my-ui/17113
+
+https://forum.bubble.io/t/how-do-i-implement-an-oauth2-flow-in-my-ui/17113
+
+https://developers.google.com/identity/protocols/oauth2
+
+
+https://support.google.com/cloud/answer/6158849?hl=en
+
+https://blog.logrocket.com/how-to-authenticate-access-google-apis-using-oauth-2-0/
+
+
+https://medium.com/@sallu-salman/implementing-sign-in-with-google-in-spring-boot-application-5f05a34905a8
+
+
+https://developers.google.com/gmail/api/reference/rest/v1/users/getProfile
