@@ -9,27 +9,70 @@ It consists of two main components: Authentication and Email Listening.
 
 This step is used to obtain a token from Google services. 
 The process begins at the endpoint `http://localhost/login`.
-
-**2-Email Listening:** 
-
-After authentication, the system starts listening to a topic in Google's Pub/Sub system based on your configuration in Google Cloud.
-
-### Setup Instructions
-
-
-**2. Authentication Setup**
 To start the authentication process and obtain a token, you'll need the following:
 
 Client ID
 Redirect URL
 Required scopes
 
+**2-Email Listening:** 
+
+After authentication, the system starts listening to a topic in Google's Pub/Sub system based on your configuration in Google Cloud.
+
+## Technology Used
+ Spring Boot
+- **Version**: 4.0.0
+
+Java
+- **Version**: 21
+
+ Build Tool
+ - **Maven**:
+  
+- **Spring Boot Web Starter**: 
+- Provides the necessary components to build web applications, including RESTful services.
+
+- **Google API Client**: 
+- Facilitates communication with Google APIs, enabling the application to interact with various Google services.
+
+- **Google Gmail API**: 
+- Provides access to Gmail features, allowing the application to send, read, and manage Gmail emails.
+
+- **Spring WebFlux**: 
+- Supports building reactive web applications using the reactive programming model.
+
+- **Google OAuth Client Jetty**: 
+  - Handles OAuth authentication, particularly with Jetty, to secure communication with Google services.
+
+- **Google HTTP Client Jackson2**: 
+  - Supports JSON parsing and serialization in HTTP requests and responses.
+
+## Clone the Project
+
+To clone the project to your local machine, use the following Git command:
+
+```bash
+git clone https://github.com/mustafa-abuelmagd/email-listener.git
+```
+
+ ## How to Start the App
+ 
+**Before starting the application, ensure that you have completed the **Setup Instructions**. There are two ways to start the application:**
+
+there is two way 
+1- by intelly j 
+2- by Dockorization
+
+
+### Setup Instructions
+
+
 ### Implement these in your Google Cloud project settings:
 
 ### 1- Go to the Google Cloud Platform Console:
 `https://console.cloud.google.com/apis/`
 
-### Create a new project:
+### 2-Create a new project:
 
 **Click on the project dropdown near the top of the page.**
 
@@ -41,7 +84,7 @@ Required scopes
 ![Screenshot from 2024-09-03 19-07-40](https://github.com/user-attachments/assets/8a1b7ac9-c9e2-4530-82b5-12aaec4f423e)
 
 
-### 2- Enable the Gmail API:
+### 3- Enable the Gmail API:
 
 **Go to "APIs & Services" > "Library".**
 
@@ -54,7 +97,7 @@ Required scopes
 
 ![Screenshot from 2024-09-03 19-12-47](https://github.com/user-attachments/assets/09ca39a1-1057-4e02-a68a-013b1ea31882)
 
-### 3-Configure OAuth credentials:
+### 4-Configure OAuth credentials:
 
 **In "APIs & Services", go to "Credentials".**
 
@@ -64,7 +107,7 @@ Required scopes
 
 **Choose "User data"**
 
-###  4- now you want to `CREATE CREDENTIALS
+###  5- now you want to `CREATE CREDENTIALS
 
 ![Screenshot from 2024-09-03 19-19-17](https://github.com/user-attachments/assets/5d172b0f-1be9-4055-ae59-c75927d5b7c2)
 
@@ -74,7 +117,7 @@ Required scopes
 ![Screenshot from 2024-09-03 19-28-31](https://github.com/user-attachments/assets/eed1127e-12cd-4dc7-aa8a-f80c7e46406c)
 
 
-### 5- OAuth Consent Screen
+### 6- OAuth Consent Screen
 
 **write your data in Oauth Consent Screet** 
 
@@ -89,7 +132,7 @@ Required scopes
     
  and click `SAVE AND CONTINUE`
 
-### 6-Scopes
+### 7-Scopes
 
 **In the OAuth consent screen, click "Add or Remove Scopes".
 **Add the following scopes:**
@@ -104,7 +147,7 @@ Required scopes
 ![Screenshot from 2024-09-03 20-28-00](https://github.com/user-attachments/assets/5266fbb2-1269-4ca3-be2d-1e8cb5072b9d)
 
 
- ### 5-Create OAuth Client
+ ### 8-Create OAuth Client
  ![Screenshot from 2024-09-04 08-02-49](https://github.com/user-attachments/assets/caef98fa-c0e6-4bbb-8771-9b71922806c5)
 
 
@@ -115,7 +158,7 @@ Required scopes
 ![Screenshot from 2024-09-04 08-31-32](https://github.com/user-attachments/assets/f40dfdc8-2e6d-4336-8b29-d8db56aff19b)
 
 
-### 6- Configure OAuth Consent Screen:
+### 9- Configure OAuth Consent Screen:
 
 **1-In "APIs & Services", go to "OAuth consent screen".**
 
@@ -123,7 +166,7 @@ Required scopes
  
   ![Screenshot from 2024-09-04 09-09-13](https://github.com/user-attachments/assets/2a0676f5-7cef-4d2f-ba87-12d5da729ad3)
 
-### 7-Create a Pub/Sub topic:
+### 10-Create a Pub/Sub topic:
 
 **1- In the Google Cloud Console, go to the Pub/Sub section.**
 
@@ -136,7 +179,7 @@ Required scopes
 ![Screenshot from 2024-09-04 10-31-48](https://github.com/user-attachments/assets/c375a8ea-296f-4938-9220-df67413af3e6)
 
 
-### Subscription
+### 11-Subscription
 Create and configure a subscription for your topic:
 
 **1- In the Pub/Sub section, find your newly created topic.**
@@ -200,5 +243,16 @@ Upon successful authentication, you will receive an access token.
 **This token is required for the application to access your Gmail account and listen for incoming emails.
 The application will automatically store and use this token for subsequent operations.**
 
+## Listening 
+**Once authenticated, the system will begin listening for emails using the configured Pub/Sub topic.**
 
-## the secound part is handle url
+**When anyone sends an email to your authenticated Gmail account, you will see it in your project.**
+If you're not seeing incoming emails in your project:
+
+#### Ensure that your application is still running and connected to the Pub/Sub topic.
+
+**1-** Check that the Gmail account you authenticated with is the one receiving the emails.
+
+**2-** Verify that your ngrok tunnel is still active and that the Pub/Sub subscription has the correct endpoint URL.
+
+**3-** Review the application logs for any error messages or connection issues.
