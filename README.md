@@ -108,21 +108,32 @@ Required scopes
  ![Screenshot from 2024-09-04 08-02-49](https://github.com/user-attachments/assets/caef98fa-c0e6-4bbb-8771-9b71922806c5)
 
 
-**Authorized JavaScript origins  :** `http://localhost:8080`
+**Authorized JavaScript origins :** ``` http://localhost:8080 ```
 
-**Authorized redirect URIs :** `http://localhost:8080/login`
+**Authorized redirect URIs :**  ``` http://localhost:8080/redirect ```
 
-![Screenshot from 2024-09-03 20-52-03](https://github.com/user-attachments/assets/fa6f8b25-0f71-4db7-9327-945c6ea5d4a4)
-
-
+![Screenshot from 2024-09-04 08-31-32](https://github.com/user-attachments/assets/f40dfdc8-2e6d-4336-8b29-d8db56aff19b)
 
 
+#### 6- Configure OAuth Consent Screen:
 
+**1-In "APIs & Services", go to "OAuth consent screen".**
 
+**2-In the "Test users" section, add the email addresses that will be used to test the application:**
+ 
+  ![Screenshot from 2024-09-04 09-09-13](https://github.com/user-attachments/assets/2a0676f5-7cef-4d2f-ba87-12d5da729ad3)
 
+#### 7-Create a Pub/Sub topic:
 
+**1- In the Google Cloud Console, go to the Pub/Sub section.**
 
-  
+**2- Click on "Create Topic".**
+
+**3- Enter a name for your topic (e.g., "email-notifications").**
+
+**4- Add `Topic name` that you created in a project in file `GoogleProperties`
+    private String topicName ="projects/mostafa-project-434605/topics/email-notifications" ;**
+
 
 ## 2. Application Configuration
 
@@ -133,3 +144,30 @@ Update the `application.yml` file with your Client ID ( in the project ).
 
   ![Screenshot from 2024-09-03 20-35-07](https://github.com/user-attachments/assets/50293595-3fe9-443f-bf4d-36507255602f)
 
+
+### Usage
+
+**Start the application .**
+
+**Open your web browser and navigate to**
+
+```
+http://localhost:8080/login
+```
+#### Follow these steps to complete the authentication process:
+
+**a. You will be redirected to the Google sign-in page.**
+
+**b. Select the Google account you want to use with this application.**
+
+**c. Review the permissions requested by the application and click "Allow".**
+
+**d. After granting permissions, you will be redirected back to your application.**
+
+Upon successful authentication, you will receive an access token.
+
+**This token is required for the application to access your Gmail account and listen for incoming emails.
+The application will automatically store and use this token for subsequent operations.**
+
+
+## the secound part is handle url
