@@ -18,17 +18,17 @@ import java.util.Map;
 public class SystemController {
 
 
-   private final GmailService gmailService ;
-   private final  OAuth2Service  oAuth2Service ;
-   private final GoogleProperties googleOAuthProperties ;
-   private  final  GoogleService googleService ;
+    private final GmailService gmailService;
+    private final OAuth2Service oAuth2Service;
+    private final GoogleProperties googleOAuthProperties;
+    private final GoogleService googleService;
 
     @Autowired
-    public SystemController(GoogleProperties googleOAuthProperties , GmailService gmailService
-            , OAuth2Service  oAuth2Service, GoogleService googleService) {
-        this.googleOAuthProperties = googleOAuthProperties ;
-        this.gmailService = gmailService ;
-        this.oAuth2Service = oAuth2Service ;
+    public SystemController(GoogleProperties googleOAuthProperties, GmailService gmailService
+            , OAuth2Service oAuth2Service, GoogleService googleService) {
+        this.googleOAuthProperties = googleOAuthProperties;
+        this.gmailService = gmailService;
+        this.oAuth2Service = oAuth2Service;
         this.googleService = googleService;
     }
 
@@ -48,9 +48,9 @@ public class SystemController {
     @PostMapping("/receive")
     public String receiveNotification(@RequestBody Map<String, Object> jsonBody) throws IOException {
 
-        String  decodedString =   googleService.decodeHistoryId( jsonBody ) ;
+        String decodedString = googleService.decodeHistoryId(jsonBody);
 
-            gmailService.listHistoryItems( decodedString, googleOAuthProperties.getToken());
+        gmailService.listHistoryItems(decodedString, googleOAuthProperties.getToken());
 
         return "decodedString";
 
@@ -89,15 +89,16 @@ public class SystemController {
      * @throws IOException if there is an error exchanging the authorization code or retrieving the token
      */
     @GetMapping("/redirect")
-    public TokenResponse getAuthorizationCode(@RequestParam String  code ) throws IOException {
-        TokenResponse token =  oAuth2Service.exchangeCodeToToken(code) ;
+    public TokenResponse getAuthorizationCode(@RequestParam String code) throws IOException {
+        TokenResponse token = oAuth2Service.exchangeCodeToToken(code);
         String access_token = token.getAccessToken();
 
-        googleOAuthProperties.setToken(access_token);
-        System.out.println("Token + " + access_token);
-        googleOAuthProperties.setHistoryId( gmailService.GetLatestHistoryId() );
+        gmailService.sendWatchRequest();
 
-        return  token ;
+        googleOAuthProperties.setToken(access_token);
+        googleOAuthProperties.setHistoryId(gmailService.getLatestHistoryId());
+
+        return token;
 
     }
 
