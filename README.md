@@ -133,13 +133,44 @@ Required scopes
 
 **4- Add `Topic name` that you created in a project in file `GoogleProperties`
     private String topicName ="projects/mostafa-project-434605/topics/email-notifications" ;**
+![Screenshot from 2024-09-04 10-31-48](https://github.com/user-attachments/assets/c375a8ea-296f-4938-9220-df67413af3e6)
 
+
+### Subscription
+Create and configure a subscription for your topic:
+
+**1- In the Pub/Sub section, find your newly created topic.**
+
+**2- Click on the topic name to view its details.**
+
+**3- In the "Subscriptions" tab, click "Create Subscription".**
+
+**4- Enter a name for your subscription (e.g., "email-notification-sub").**
+
+**5- Under "Delivery Type", select "Push".**
+
+**6- For the Endpoint URL, you'll need a public URL that can receive messages from Pub/Sub. We'll use ngrok for this**
+
+**8-Click "Create" to finalize the subscription creation.**
+
+![Screenshot from 2024-09-04 10-23-11](https://github.com/user-attachments/assets/39b79519-6d2d-4963-8a57-d53856d093fd)
+
+ ![Screenshot from 2024-09-04 10-22-23](https://github.com/user-attachments/assets/eba6c7b7-df9b-4947-83fc-7caaf2f46601)
+ 
+
+![Screenshot from 2024-09-04 10-21-31](https://github.com/user-attachments/assets/3abb25ef-3a44-4a6b-a036-ae36d0450e98)
 
 ## 2. Application Configuration
 
 After setting up Google Cloud, configure your application:
 
-**Copy your Client ID from the Google Cloud Console ( CREDENTIALS > `web client 1` >  information and summary  )**
+**Copy your `Client ID` , `Secret ID` , `Topic Name` from the Google Cloud Console to your project **
+
+**Client Id , Topic Name --> add in `yml.file`.**
+
+**Topic Name add in `GoogleProprtties`**
+
+( CREDENTIALS > `web client 1` >  information and summary  )**
 Update the `application.yml` file with your Client ID ( in the project ).
 
   ![Screenshot from 2024-09-03 20-35-07](https://github.com/user-attachments/assets/50293595-3fe9-443f-bf4d-36507255602f)
