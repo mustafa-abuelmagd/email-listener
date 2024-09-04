@@ -269,6 +269,10 @@ If you're not seeing incoming emails in your project:
 http://localhost:8080/login
 ```
 
+6- the output 
+![Screenshot from 2024-09-04 12-43-26](https://github.com/user-attachments/assets/19cf0a7a-f229-4671-bb29-46dbff64a2bf)
+
+
 ## Resources Used to Build This Project
 
 https://blog.postman.com/how-to-access-google-apis-using-oauth-in-postman/
