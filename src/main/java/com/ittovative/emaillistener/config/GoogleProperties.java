@@ -17,7 +17,7 @@ public class GoogleProperties {
     private List<String> scopes;
     private String token;
     private String historyId ;
-    private String topicName ="projects/listeningemail-2/topics/Email-2" ;
+    private String topicName ="projects/email-receiver-ittovative/topics/gmail-events" ;
 
     public String getTopicName() {
         return topicName;

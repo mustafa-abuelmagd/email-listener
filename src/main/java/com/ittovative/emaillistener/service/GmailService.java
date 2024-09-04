@@ -17,7 +17,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 
-
 @Service
 public class GmailService {
 
@@ -41,34 +40,29 @@ public class GmailService {
      * </p>
      *
      * @param historyId the history ID to start listing from
-     * @param token the OAuth2 token used for authentication
+     * @param token     the OAuth2 token used for authentication
      * @throws IOException if there is an error accessing Gmail or processing the history items
      */
     public void listHistoryItems(String historyId, String token) throws IOException {
-
-             if( latestHistoryId == null){
-                latestHistoryId = googleProperties.getHistoryId() ;
-
-             }
-
-
+        System.out.println("historyId " + historyId);
         String userId = "me";
-        BigInteger startHistoryId = new BigInteger(latestHistoryId);
+        BigInteger startHistoryId = new BigInteger(googleProperties.getHistoryId());
         Gmail.Users.History.List request = gmailService.users().history().list(userId).setStartHistoryId(startHistoryId).setAccessToken(token);
 
-        latestHistoryId = historyId;
+        googleProperties.setHistoryId(historyId);
 
         ListHistoryResponse response = request.execute();
         List<History> histories = response.getHistory();
 
         if (histories != null && !histories.isEmpty()) {
             History history = histories.get(0);
-            List<HistoryMessageAdded> messagesAdded = history.getMessagesAdded();
+            List<Message> messages = history.getMessages();
+            if (messages != null && !messages.isEmpty()) {
+                for (int i = 0; i < messages.size(); i++) {
+                    String messageId = messages.get(i).getId(); // Get the first message ID
+                    getMessageById(messageId, token);
+                }
 
-            if (messagesAdded != null && !messagesAdded.isEmpty()) {
-                String messageId = messagesAdded.get(0).getMessage().getId(); // Get the first message ID
-
-                getMessageById(messageId, token);
             } else {
                 System.out.println("No messages found in the history.");
             }
@@ -86,7 +80,7 @@ public class GmailService {
      * </p>
      *
      * @param messageId the ID of the message to retrieve
-     * @param token the OAuth2 token used for authentication
+     * @param token     the OAuth2 token used for authentication
      */
     public void getMessageById(String messageId, String token) {
 
@@ -94,12 +88,11 @@ public class GmailService {
 
             Gmail service = new Gmail.Builder(new NetHttpTransport(), JacksonFactory.getDefaultInstance(),
                     new GoogleCredential().setAccessToken(token))
-                    .setApplicationName("listeningemail-2")
+                    .setApplicationName("email-receiver-ittovative")
                     .build();
 
             // Retrieve the message by ID
             Message message = service.users().messages().get("me", messageId).setFormat("raw").execute();
-
             // decode email
             String rawMessage = message.getRaw();
             byte[] emailBytes = Base64.getUrlDecoder().decode(rawMessage);
@@ -107,6 +100,7 @@ public class GmailService {
 
 
             extractEmailData.extractEmailData(decodedEmail);
+            System.out.println(message.getHistoryId() + "\n\n\n\n");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -123,17 +117,19 @@ public class GmailService {
      * @return the latest history ID as a string
      * @throws IOException if there is an error accessing Gmail or initiating the watch request
      */
-    public String GetLatestHistoryId() throws IOException {
+    public String getLatestHistoryId() throws IOException {
+        Profile profile = gmailService.users().getProfile("me").setAccessToken(googleProperties.getToken()).execute();
+        String historyId = String.valueOf(profile.getHistoryId());
+        return historyId;
+    }
 
+    public void sendWatchRequest() throws IOException {
         WatchRequest request = new WatchRequest()
-                .setTopicName( googleProperties.getTopicName() ) // Replace with your topic name
+                .setTopicName(googleProperties.getTopicName()) // Replace with your topic name
                 .setLabelIds(Collections.singletonList("INBOX"));
 
-        WatchResponse response = gmailService.users().watch("me", request).setAccessToken(googleProperties.getToken()).execute();
+        gmailService.users().watch("me", request).setAccessToken(googleProperties.getToken()).execute();
 
-
-        String  historyId = response.getHistoryId().toString() ;
-        return historyId;
     }
 
 
