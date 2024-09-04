@@ -74,27 +74,24 @@ Required scopes
 ![Screenshot from 2024-09-03 19-28-31](https://github.com/user-attachments/assets/eed1127e-12cd-4dc7-aa8a-f80c7e46406c)
 
 
- #### 5-Create OAuth Client
+#### 5- OAuth Consent Screen
 
-**Authorized JavaScript origins  :** `http://localhost:8080`
+**write your data in Oauth Consent Screet** 
 
-**Authorized redirect URIs :** `http://localhost:8080/login`
+ **1- APP information :** 
+ The name of the app asking for consent
+ 
+**2- User support email :**
+    The User Support Email field requires you to specify an email address that will be displayed to users on the consent   screen.  This should be an email address that you regularly monitor so that you can answer questions they have about sign-in
 
-![Screenshot from 2024-09-03 20-52-03](https://github.com/user-attachments/assets/fa6f8b25-0f71-4db7-9327-945c6ea5d4a4)
+   **3-  Developer contact information**
+    These email addresses are for Google to notify you about any changes to your project. 
+    
+ and click `SAVE AND CONTINUE`
 
+#### 6-Scopes
 
-
-
-
-
-#### 7- OAuth Consent Screen
-
-**write your data in Oauth Consent Screet (  App information  ,  Developer contact information  ) and click `Done`**
-
-
-#### 8-Scopes
-
-**In the OAuth consent screen, click "Add or Remove Scopes".**
+**In the OAuth consent screen, click "Add or Remove Scopes".
 **Add the following scopes:**
  ```pach
   https://mail.google.com/
@@ -107,6 +104,21 @@ Required scopes
 ![Screenshot from 2024-09-03 20-28-00](https://github.com/user-attachments/assets/5266fbb2-1269-4ca3-be2d-1e8cb5072b9d)
 
 
+ #### 5-Create OAuth Client
+ ![Screenshot from 2024-09-04 08-02-49](https://github.com/user-attachments/assets/caef98fa-c0e6-4bbb-8771-9b71922806c5)
+
+
+**Authorized JavaScript origins  :** `http://localhost:8080`
+
+**Authorized redirect URIs :** `http://localhost:8080/login`
+
+![Screenshot from 2024-09-03 20-52-03](https://github.com/user-attachments/assets/fa6f8b25-0f71-4db7-9327-945c6ea5d4a4)
+
+
+
+
+
+
 
 
 
@@ -117,7 +129,7 @@ Required scopes
 After setting up Google Cloud, configure your application:
 
 **Copy your Client ID from the Google Cloud Console ( CREDENTIALS > `web client 1` >  information and summary  )**
-Update the application.yml file with your Client ID ( in the project ).
+Update the `application.yml` file with your Client ID ( in the project ).
 
   ![Screenshot from 2024-09-03 20-35-07](https://github.com/user-attachments/assets/50293595-3fe9-443f-bf4d-36507255602f)
 
