@@ -26,25 +26,26 @@ After authentication, the system starts listening to a topic in Google's Pub/Sub
 Java
 - **Version**: 21
 
- Build Tool
+Build Tool
  - **Maven**:
+
   
-- **Spring Boot Web Starter**: 
+  **Spring Boot Web Starter**: 
 - Provides the necessary components to build web applications, including RESTful services.
 
-- **Google API Client**: 
+  **Google API Client**: 
 - Facilitates communication with Google APIs, enabling the application to interact with various Google services.
 
-- **Google Gmail API**: 
+ **Google Gmail API**: 
 - Provides access to Gmail features, allowing the application to send, read, and manage Gmail emails.
 
-- **Spring WebFlux**: 
+  **Spring WebFlux**: 
 - Supports building reactive web applications using the reactive programming model.
 
-- **Google OAuth Client Jetty**: 
+ **Google OAuth Client Jetty**: 
   - Handles OAuth authentication, particularly with Jetty, to secure communication with Google services.
 
-- **Google HTTP Client Jackson2**: 
+  **Google HTTP Client Jackson2**: 
   - Supports JSON parsing and serialization in HTTP requests and responses.
 
 ## Clone the Project
