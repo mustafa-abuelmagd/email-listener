@@ -21,7 +21,19 @@ public class GmailConfig {
     public GmailConfig(@Qualifier("googleProperties") GoogleProperties googleOAuthProperties) {
         this.googleOAuthProperties = googleOAuthProperties;
     }
-
+    /**
+ * Creates and configures a {@link Gmail} service instance using OAuth2 credentials.
+ * <p>
+ * This method initializes the necessary components for accessing the Gmail API, including
+ * the HTTP transport and JSON factory. It creates a {@link Credential} object using the
+ * client ID, client secret, and access token provided in the {@link GoogleProperties}.
+            * The method then constructs and returns a {@link Gmail} service instance configured
+ * with these credentials.
+ * </p>
+            *
+            * @return a configured {@link Gmail} service instance for interacting with the Gmail API
+ * @throws Exception if there is an error in setting up the Gmail service
+ **/
     @Bean
     public Gmail gmail() throws Exception {
         NetHttpTransport httpTransport = new NetHttpTransport();

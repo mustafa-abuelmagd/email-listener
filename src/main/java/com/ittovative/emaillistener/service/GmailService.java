@@ -33,6 +33,17 @@ public class GmailService {
         this.extractEmailData = extractEmailData;
     }
 
+    /**
+     * Lists history items from Gmail starting from a specified history ID and processes new messages.
+     * <p>
+     * This method retrieves the Gmail history from the given start history ID and processes any new messages
+     * that have been added. It updates the latest history ID and retrieves the first message's details if available.
+     * </p>
+     *
+     * @param historyId the history ID to start listing from
+     * @param token the OAuth2 token used for authentication
+     * @throws IOException if there is an error accessing Gmail or processing the history items
+     */
     public void listHistoryItems(String historyId, String token) throws IOException {
 
              if( latestHistoryId == null){
@@ -67,7 +78,16 @@ public class GmailService {
 
     }
 
-
+    /**
+     * Retrieves and processes a message by its ID.
+     * <p>
+     * This method fetches a message from Gmail using the provided message ID, decodes the raw email data,
+     * and then extracts email details using {@link ExtractEmailData}.
+     * </p>
+     *
+     * @param messageId the ID of the message to retrieve
+     * @param token the OAuth2 token used for authentication
+     */
     public void getMessageById(String messageId, String token) {
 
         try {
@@ -93,15 +113,24 @@ public class GmailService {
         }
     }
 
-
+    /**
+     * Retrieves the latest history ID from Gmail.
+     * <p>
+     * This method initiates a watch request to the Gmail API to get the latest history ID and sets up
+     * notifications for the specified label (INBOX). The history ID is used to track changes in the Gmail account.
+     * </p>
+     *
+     * @return the latest history ID as a string
+     * @throws IOException if there is an error accessing Gmail or initiating the watch request
+     */
     public String GetLatestHistoryId() throws IOException {
 
         WatchRequest request = new WatchRequest()
                 .setTopicName( googleProperties.getTopicName() ) // Replace with your topic name
                 .setLabelIds(Collections.singletonList("INBOX"));
 
-
         WatchResponse response = gmailService.users().watch("me", request).setAccessToken(googleProperties.getToken()).execute();
+
 
         String  historyId = response.getHistoryId().toString() ;
         return historyId;

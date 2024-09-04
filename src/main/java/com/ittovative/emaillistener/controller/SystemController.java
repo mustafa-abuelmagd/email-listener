@@ -33,7 +33,18 @@ public class SystemController {
     }
 
 
-
+    /**
+     * Receives notifications from a webhook and processes them.
+     * <p>
+     * This endpoint is used to handle incoming notifications. It decodes the history ID
+     * from the request body and uses it to list history items from Gmail using the token
+     * stored in {@link GoogleProperties}.
+     * </p>
+     *
+     * @param jsonBody a map containing the JSON body of the notification
+     * @return a confirmation string indicating successful processing
+     * @throws IOException if there is an error processing the notification or communicating with Gmail
+     */
     @PostMapping("/receive")
     public String receiveNotification(@RequestBody Map<String, Object> jsonBody) throws IOException {
 
@@ -46,6 +57,15 @@ public class SystemController {
     }
 
 
+    /**
+     * Redirects the user to the OAuth2 authorization URL for login.
+     * <p>
+     * This endpoint generates an authorization URL and redirects the user to it. The user
+     * needs to authorize the application and obtain an authorization code.
+     * </p>
+     *
+     * @param httpServletResponse the HTTP response used to redirect the user
+     */
     @GetMapping("/login")
     public void login(HttpServletResponse httpServletResponse) {
 
@@ -55,14 +75,27 @@ public class SystemController {
         httpServletResponse.setStatus(302);
     }
 
+
+    /**
+     * Exchanges the authorization code for an access token and updates application properties.
+     * <p>
+     * This endpoint handles the authorization code returned from the OAuth2 provider,
+     * exchanges it for an access token, and updates the {@link GoogleProperties} with the
+     * new token and the latest history ID from Gmail.
+     * </p>
+     *
+     * @param code the authorization code received from the OAuth2 provider
+     * @return the {@link TokenResponse} containing the access token
+     * @throws IOException if there is an error exchanging the authorization code or retrieving the token
+     */
     @GetMapping("/redirect")
     public TokenResponse getAuthorizationCode(@RequestParam String  code ) throws IOException {
-
         TokenResponse token =  oAuth2Service.exchangeCodeToToken(code) ;
-        String accrss_token = token.getAccessToken();
-        googleOAuthProperties.setToken(accrss_token);
-        googleOAuthProperties.setHistoryId( gmailService.GetLatestHistoryId() );
+        String access_token = token.getAccessToken();
 
+        googleOAuthProperties.setToken(access_token);
+        System.out.println("Token + " + access_token);
+        googleOAuthProperties.setHistoryId( gmailService.GetLatestHistoryId() );
 
         return  token ;
 
