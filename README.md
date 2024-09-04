@@ -59,12 +59,16 @@ git clone https://github.com/mustafa-abuelmagd/email-listener.git
  
 **Before starting the application, ensure that you have completed the **Setup Instructions**. There are two ways to start the application:**
 
-there is two way 
-1- by intelly j 
-2- by Dockorization
-
-
-### Setup Instructions
+### 1. Using IntelliJ
+1. Open the project in IntelliJ IDEA.
+2. Make sure all necessary dependencies are downloaded and the project is built successfully.
+4. Right-click on the `EmailListenerApplication` class and select **Run 'Application'**.
+5-Open your web browser or a tool like Postman.
+6-Access the authentication endpoint by navigating to:
+```
+http://localhost:8080/login
+```
+## Setup Instructions
 
 
 ### Implement these in your Google Cloud project settings:
