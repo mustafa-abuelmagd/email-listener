@@ -24,12 +24,12 @@ Client ID
 Redirect URL
 Required scopes
 
-##### Implement these in your Google Cloud project settings:
+### Implement these in your Google Cloud project settings:
 
-#### 1- Go to the Google Cloud Platform Console:
+### 1- Go to the Google Cloud Platform Console:
 `https://console.cloud.google.com/apis/`
 
-#### Create a new project:
+### Create a new project:
 
 **Click on the project dropdown near the top of the page.**
 
@@ -41,7 +41,7 @@ Required scopes
 ![Screenshot from 2024-09-03 19-07-40](https://github.com/user-attachments/assets/8a1b7ac9-c9e2-4530-82b5-12aaec4f423e)
 
 
-#### 2- Enable the Gmail API:
+### 2- Enable the Gmail API:
 
 **Go to "APIs & Services" > "Library".**
 
@@ -54,7 +54,7 @@ Required scopes
 
 ![Screenshot from 2024-09-03 19-12-47](https://github.com/user-attachments/assets/09ca39a1-1057-4e02-a68a-013b1ea31882)
 
-#### 3-Configure OAuth credentials:
+### 3-Configure OAuth credentials:
 
 **In "APIs & Services", go to "Credentials".**
 
@@ -64,7 +64,7 @@ Required scopes
 
 **Choose "User data"**
 
-##### 4- now you want to `CREATE CREDENTIALS
+###  4- now you want to `CREATE CREDENTIALS
 
 ![Screenshot from 2024-09-03 19-19-17](https://github.com/user-attachments/assets/5d172b0f-1be9-4055-ae59-c75927d5b7c2)
 
@@ -74,7 +74,7 @@ Required scopes
 ![Screenshot from 2024-09-03 19-28-31](https://github.com/user-attachments/assets/eed1127e-12cd-4dc7-aa8a-f80c7e46406c)
 
 
-#### 5- OAuth Consent Screen
+### 5- OAuth Consent Screen
 
 **write your data in Oauth Consent Screet** 
 
@@ -89,7 +89,7 @@ Required scopes
     
  and click `SAVE AND CONTINUE`
 
-#### 6-Scopes
+### 6-Scopes
 
 **In the OAuth consent screen, click "Add or Remove Scopes".
 **Add the following scopes:**
@@ -104,7 +104,7 @@ Required scopes
 ![Screenshot from 2024-09-03 20-28-00](https://github.com/user-attachments/assets/5266fbb2-1269-4ca3-be2d-1e8cb5072b9d)
 
 
- #### 5-Create OAuth Client
+ ### 5-Create OAuth Client
  ![Screenshot from 2024-09-04 08-02-49](https://github.com/user-attachments/assets/caef98fa-c0e6-4bbb-8771-9b71922806c5)
 
 
@@ -115,7 +115,7 @@ Required scopes
 ![Screenshot from 2024-09-04 08-31-32](https://github.com/user-attachments/assets/f40dfdc8-2e6d-4336-8b29-d8db56aff19b)
 
 
-#### 6- Configure OAuth Consent Screen:
+### 6- Configure OAuth Consent Screen:
 
 **1-In "APIs & Services", go to "OAuth consent screen".**
 
@@ -123,7 +123,7 @@ Required scopes
  
   ![Screenshot from 2024-09-04 09-09-13](https://github.com/user-attachments/assets/2a0676f5-7cef-4d2f-ba87-12d5da729ad3)
 
-#### 7-Create a Pub/Sub topic:
+### 7-Create a Pub/Sub topic:
 
 **1- In the Google Cloud Console, go to the Pub/Sub section.**
 
