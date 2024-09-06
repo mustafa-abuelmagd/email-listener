@@ -8,6 +8,6 @@ google:
     scopes:
       - "https://mail.google.com/"
       - "https://www.googleapis.com/auth/gmail.readonly"
-
+    google-project-name : ${GOOGLE_PROJECT_NAME}
 
 
