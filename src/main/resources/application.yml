@@ -8,6 +8,7 @@ google:
     scopes:
       - "https://mail.google.com/"
       - "https://www.googleapis.com/auth/gmail.readonly"
-    google-project-name : ${GOOGLE_PROJECT_NAME}
+    project-name-in-cloud : ${GOOGLE_CLOUD_pub/sub_NAME}
+    topic-name : ${GOOGLE_CLOUD_TOPIC_NAME}
 
 
