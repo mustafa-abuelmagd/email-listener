@@ -88,7 +88,7 @@ public class GmailService {
 
             Gmail service = new Gmail.Builder(new NetHttpTransport(), JacksonFactory.getDefaultInstance(),
                     new GoogleCredential().setAccessToken(token))
-                    .setApplicationName("email-receiver-ittovative")
+                    .setApplicationName(googleProperties.getTopicName())
                     .build();
 
             // Retrieve the message by ID

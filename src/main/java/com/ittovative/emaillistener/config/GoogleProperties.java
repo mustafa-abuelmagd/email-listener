@@ -17,15 +17,25 @@ public class GoogleProperties {
     private List<String> scopes;
     private String token;
     private String historyId ;
-    private String topicName ="projects/email-receiver-ittovative/topics/gmail-events" ;
+    private String projectNameInCloud ;
+    private String TopicName ;
 
     public String getTopicName() {
-        return topicName;
+        return TopicName;
     }
 
     public void setTopicName(String topicName) {
-        this.topicName = topicName;
+        TopicName = topicName;
     }
+
+    public String getProjectNameInCloud() {
+        return projectNameInCloud;
+    }
+
+    public void setProjectNameInCloud(String projectNameInCloud) {
+        this.projectNameInCloud = projectNameInCloud;
+    }
+
 
     public String getHistoryId() {
         return historyId;
