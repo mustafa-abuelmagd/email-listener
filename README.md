@@ -71,10 +71,17 @@ git clone https://github.com/mustafa-abuelmagd/email-listener.git
 
 **Select "New Project" or use the search bar to find "New project".**
 
+**Create a new project (write project name > click create).**
+
+**Activate your project in the list of projects.**
+
 ![Screenshot from 2024-09-03 19-01-48](https://github.com/user-attachments/assets/ad599b87-ef05-4323-a7eb-ecfd29fb3498)
 
 
 ![Screenshot from 2024-09-03 19-07-40](https://github.com/user-attachments/assets/8a1b7ac9-c9e2-4530-82b5-12aaec4f423e)
+
+![Screenshot from 2024-09-07 12-39-40](https://github.com/user-attachments/assets/99b852d9-79c8-4d20-91cc-f5cf6dfdbd21)
+
 
 
 ### 3- Enable the Gmail API:
