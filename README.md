@@ -94,8 +94,13 @@ git clone https://github.com/mustafa-abuelmagd/email-listener.git
 
 ![image](https://github.com/user-attachments/assets/2f1015f0-b293-42dc-be0f-e4add7016c2f)
 
+![Screenshot from 2024-09-07 12-46-54](https://github.com/user-attachments/assets/ccda0e2a-a67a-4e6e-8d43-5b8b9023dbab)
+
 
 ![Screenshot from 2024-09-03 19-12-47](https://github.com/user-attachments/assets/09ca39a1-1057-4e02-a68a-013b1ea31882)
+
+![Screenshot from 2024-09-07 12-48-26](https://github.com/user-attachments/assets/0f7c4112-4a18-40db-85b1-19c557953b3e)
+
 
 ### 4-Configure OAuth credentials:
 
@@ -107,9 +112,12 @@ git clone https://github.com/mustafa-abuelmagd/email-listener.git
 
 **Choose "User data"**
 
-###  5- now you want to `CREATE CREDENTIALS
 
-![Screenshot from 2024-09-03 19-19-17](https://github.com/user-attachments/assets/5d172b0f-1be9-4055-ae59-c75927d5b7c2)
+
+![Screenshot from 2024-09-07 12-51-15](https://github.com/user-attachments/assets/00cb5ebc-415e-45e2-a2e6-1afa7b5fd562)
+
+![Screenshot from 2024-09-07 12-52-31](https://github.com/user-attachments/assets/35b076ff-027b-4447-88ef-1ee43c3539ab)
+
 
 ![Screenshot from 2024-09-03 20-47-26](https://github.com/user-attachments/assets/2f283c62-c4fc-4d37-b1a7-2f69f8488138)
 
