@@ -288,16 +288,20 @@ click next direct because you implemented it in a previous step
 
 After setting up Google Cloud, configure your application:
 
-**Copy your `Client ID` , `Secret ID` , `Topic Name` from the Google Cloud Console to your project **
+** to get  `Client ID` , `Client secret` **
 
 ( CREDENTIALS > `web client 1` >  information and summary  )**
 
   ![Screenshot from 2024-09-03 20-35-07](https://github.com/user-attachments/assets/50293595-3fe9-443f-bf4d-36507255602f)
 
+**to get `Topic name`**
+
 ( Subscription >  Subscription ID > you will see `Topic name` )
 ![image](https://github.com/user-attachments/assets/1f1d413f-b15a-4d4a-b59a-a47e024780df)
 
- ** add [ `Topic name` , `Client ID` , `Client secret` ,  `project name in cloud` ] to the `application.yml` file in the code.**
+ ** add [ `Topic name` , `Client ID` , `Client secret` ,  `project name in cloud` ] from the Google Cloud Console to the `application.yml` file in the code.**
+ ![Screenshot from 2024-09-07 19-06-15](https://github.com/user-attachments/assets/b35ed596-7503-4d5b-b11d-0bd59125260a)
+
 
 ### Usage
 
